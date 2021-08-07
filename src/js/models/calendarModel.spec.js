@@ -4,7 +4,10 @@ import calendarModel from './calendarModel';
 describe('calendarModel', () => {
   describe('getMonthDays', () => {
     it('should return days of week in month', () => {
-      const weeks = calendarModel.getMonthDays(new Date('2018/5/13'));
+      const date = new Date('2018/5/13');
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const weeks = calendarModel.getMonthDays({ year, month });
       expect(weeks).toEqual({
         month: 'May',
         weeks: [
@@ -326,7 +329,7 @@ describe('calendarModel', () => {
                 date: '2018-5-13',
                 day: 13,
                 hide: false,
-                isToday: true,
+                isToday: false,
               },
               {
                 date: '2018-5-14',
@@ -452,7 +455,7 @@ describe('calendarModel', () => {
               },
               {
                 date: '2018-6-2',
-                day: 1,
+                day: 2,
                 hide: true,
                 isToday: false,
               },

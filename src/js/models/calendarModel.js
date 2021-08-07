@@ -32,10 +32,8 @@ class CalendarModel {
     return `${this.monthNames[date.getMonth()]} ${date.getFullYear()}`;
   }
 
-  getMonthDays(date) {
+  getMonthDays({ year, month, shouldBeHide = false }) {
     const weeks = [];
-    const year = date.getFullYear();
-    const month = date.getMonth();
 
     const firstDate = new Date(year, month, 1);
     const lastDate = new Date(year, month + 1, 0);
@@ -51,7 +49,7 @@ class CalendarModel {
         days.push({
           date: dateString,
           day,
-          hide: false,
+          hide: shouldBeHide,
           isToday: isToday(dateString),
         });
       }
@@ -72,8 +70,58 @@ class CalendarModel {
   }
 
   getCurrentViewWeeks(date) {
-    const monthDays = this.getMonthDays(date);
-    return monthDays;
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const monthDays = this.getMonthDays({ year, month });
+    const {
+      0: firstWeekDays,
+      [monthDays.weeks.length - 1]: lastWeekDays,
+    } = monthDays.weeks;
+
+    if (firstWeekDays.days.length !== 7) {
+      // extract previous month week days
+      const previousMonthDays = this.getMonthDays({
+        year,
+        month: month - 1,
+        shouldBeHide: true,
+      });
+      const {
+        [previousMonthDays.weeks.length - 1]: lastWeekOfPreviousMonthDays,
+      } = previousMonthDays.weeks;
+
+      monthDays.weeks[0].days = [
+        ...lastWeekOfPreviousMonthDays.days,
+        ...firstWeekDays.days,
+      ];
+    }
+    const nextMonthDays = this.getMonthDays({
+      year,
+      month: month + 1,
+      shouldBeHide: true,
+    });
+    if (lastWeekDays.length !== 7) {
+      // extract next month week days
+      lastWeekDays.days = [
+        ...lastWeekDays.days,
+        ...nextMonthDays.weeks.shift().days,
+      ];
+    }
+    let numberOfDays = monthDays.weeks.reduce((totalDays, currentWeek) => {
+      // eslint-disable-next-line no-param-reassign
+      totalDays += currentWeek.days.length;
+      return totalDays;
+    }, 0);
+    while (numberOfDays < 42) {
+      const incomingWeeks = nextMonthDays.weeks.shift();
+      monthDays.weeks.push(incomingWeeks);
+      numberOfDays = monthDays.weeks.reduce((totalDays, currentWeek) => {
+        // eslint-disable-next-line no-param-reassign
+        totalDays += currentWeek.days.length;
+        return totalDays;
+      }, 0);
+    }
+
+    return monthDays.weeks;
   }
 
   generateCalendar(date) {
