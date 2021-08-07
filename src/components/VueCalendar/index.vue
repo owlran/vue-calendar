@@ -1,16 +1,19 @@
 <template lang="pug">
-  .vue-calendar
+  .VueCalendar
     h1 Vue Calendar
     VueCalendarHeader
-    .vue-calendar__content
+    h1 {{ calendar.title }}
+    .VueCalendar__content
       VueCalendarWeek(
-        v-for="(week, weekIndex) in calendar"
+        v-for="(week, weekIndex) in calendar.weeks"
         :key="weekIndex"
+        :week="week"
       )
         VueCalendarDay
 </template>
 
 <script>
+import calendarModel from '@/js/models/calendarModel';
 import VueCalendarHeader from './VueCalendarHeader.vue';
 import VueCalendarWeek from './VueCalendarWeek.vue';
 import VueCalendarDay from './VueCalendarDay.vue';
@@ -18,6 +21,7 @@ import VueCalendarDay from './VueCalendarDay.vue';
 export default {
   data() {
     return {
+      calendarModel,
       calendar: {
         weeks: [],
       },
@@ -45,7 +49,10 @@ export default {
       console.log(date);
     },
     initConfigs() {},
-    initCalendar() {},
+    initCalendar() {
+      const now = new Date();
+      this.calendar = calendarModel.generateCalendar(now);
+    },
     updateCalendar() {},
   },
   created() {
@@ -56,5 +63,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.VueCalendar {
+  &__content {
+  }
+}
 
 </style>
