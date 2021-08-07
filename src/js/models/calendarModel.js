@@ -99,7 +99,7 @@ class CalendarModel {
       month: month + 1,
       shouldBeHide: true,
     });
-    if (lastWeekDays.length !== 7) {
+    if (lastWeekDays.days.length !== 7) {
       // extract next month week days
       lastWeekDays.days = [
         ...lastWeekDays.days,
