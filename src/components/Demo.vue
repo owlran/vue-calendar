@@ -1,6 +1,6 @@
 <template lang="pug">
   .Demo
-    h1 123
+    h1 Demo
     VueCalendar
 </template>
 
