@@ -1,26 +1,39 @@
 <template lang="pug">
   .VueCalendar
-    VueCalendarHeader(
-      :title="calendar.title"
-      @goPreMonth="goPreMonth"
-      @goNextMonth="goNextMonth"
-    )
-    .VueCalendar__content
-      VueClendarDayNames(:configs="configs")
-      VueCalendarWeek(
-        v-for="(week, weekIndex) in calendar.weeks"
-        :key="weekIndex"
-        :week="week"
-        :selectedDate="selectedDate"
-        @selectDate="selectDate"
+    .VueCalendar__wrapper(v-if="currentViewType === VIEW_TYPES.WEEKS_DAYS")
+      VueCalendarHeader(
+        :title="calendar.title"
+        @goPreMonth="goPreMonth"
+        @goNextMonth="goNextMonth"
+        @changeView="changeView"
       )
+      .VueCalendar__content
+        VueClendarDayNames(:configs="configs")
+        VueCalendarWeek(
+          v-for="(week, weekIndex) in calendar.weeks"
+          :key="weekIndex"
+          :week="week"
+          :selectedDate="selectedDate"
+          @selectDate="selectDate"
+        )
+    .VueCalendar__wrapper(
+      v-else-if="currentViewType === VIEW_TYPES.YEAR_PICKER"
+    )
+      VueCalendarYearPicker
+    .VueCalendar__wrapper(
+      v-else-if="currentViewType === VIEW_TYPES.MONTH_PICKER"
+    )
+      VueCalendarMonthPicker
 </template>
 
 <script>
 import calendarModel from '@/js/models/calendarModel';
 import VueClendarDayNames from '@/components/VueCalendar/VueCalendarDayNames.vue';
+import { VIEW_TYPES } from '@/const/index';
 import VueCalendarHeader from './VueCalendarHeader.vue';
 import VueCalendarWeek from './VueCalendarWeek.vue';
+import VueCalendarYearPicker from './VueCalendarYearPicker.vue';
+import VueCalendarMonthPicker from './VueCalendarMonthPicker.vue';
 
 export default {
   props: {
@@ -31,9 +44,11 @@ export default {
   },
   data() {
     return {
+      VIEW_TYPES,
       selectedDate: null,
       calendarModel,
       currentClendarDate: null,
+      currentViewType: 'WEEKS_DAYS',
       calendar: {
         weeks: [],
       },
@@ -46,8 +61,13 @@ export default {
     VueCalendarHeader,
     VueCalendarWeek,
     VueClendarDayNames,
+    VueCalendarYearPicker,
+    VueCalendarMonthPicker,
   },
   methods: {
+    changeView(viewType) {
+      this.currentViewType = viewType;
+    },
     goPreMonth() {
       this.chooseMonth(this.currentClendarDate.getMonth() - 1);
     },

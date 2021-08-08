@@ -5,19 +5,18 @@
       :arrowDirection="'left'"
       @click="$emit('goPreMonth')"
     )
-    span.VueCalendarHeader__title {{ title }}
+    span.VueCalendarHeader__title(
+      @click="changeView"
+    ) {{ title }}
     VueCalendarArrow(
       :arrowDirection="'right'"
       @click="$emit('goNextMonth')"
     )
-  VueCalendarYearPicker(v-if="false")
-  VueCalendarMonthPicker(v-if="false")
 </template>
 
 <script>
 import VueCalendarArrow from '@/components/VueCalendar/VueCalendarArrow.vue';
-import VueCalendarYearPicker from './VueCalendarYearPicker.vue';
-import VueCalendarMonthPicker from './VueCalendarMonthPicker.vue';
+import { VIEW_TYPES } from '@/const/index';
 
 export default {
   props: {
@@ -26,9 +25,12 @@ export default {
     },
   },
   components: {
-    VueCalendarYearPicker,
-    VueCalendarMonthPicker,
     VueCalendarArrow,
+  },
+  methods: {
+    changeView() {
+      this.$emit('changeView', VIEW_TYPES.MONTH_PICKER);
+    },
   },
 };
 </script>
