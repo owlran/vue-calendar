@@ -1,8 +1,8 @@
 <template lang="pug">
   .VueCalendar
-    h1 Vue Calendar
-    VueCalendarHeader
-    h1 {{ calendar.title }}
+    VueCalendarHeader(
+      :title="calendar.title"
+    )
     .VueCalendar__content
       VueCalendarWeek(
         v-for="(week, weekIndex) in calendar.weeks"
@@ -64,6 +64,9 @@ export default {
 
 <style lang="scss" scoped>
 .VueCalendar {
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 20px;
   &__content {
   }
 }
