@@ -5,7 +5,7 @@
         :title="calendar.title"
         @goPrevious="goPreMonth"
         @goNext="goNextMonth"
-        @changeView="changeView(VIEW_TYPES.WEEKS_DAYS)"
+        @changeView="changeView(VIEW_TYPES.MONTH_PICKER)"
       )
       .VueCalendar__content
         VueClendarDayNames(:configs="configs")
@@ -23,7 +23,10 @@
     .VueCalendar__wrapper(
       v-else-if="currentViewType === VIEW_TYPES.MONTH_PICKER"
     )
-      VueCalendarMonthPicker
+      VueCalendarMonthPicker(
+        :calendar="calendar"
+        :selectedDate="selectedDate"
+      )
 </template>
 
 <script>
@@ -47,7 +50,7 @@ export default {
       VIEW_TYPES,
       selectedDate: null,
       calendarModel,
-      currentClendarDate: null,
+      currentCalendarDate: null,
       currentViewType: 'WEEKS_DAYS',
       calendar: {
         weeks: [],
@@ -69,16 +72,16 @@ export default {
       this.currentViewType = viewType;
     },
     goPreMonth() {
-      this.chooseMonth(this.currentClendarDate.getMonth() - 1);
+      this.chooseMonth(this.currentCalendarDate.getMonth() - 1);
     },
     goNextMonth() {
-      this.chooseMonth(this.currentClendarDate.getMonth() + 1);
+      this.chooseMonth(this.currentCalendarDate.getMonth() + 1);
     },
     goPreYear() {
-      this.chooseYear(this.currentClendarDate.getFullYear() - 1);
+      this.chooseYear(this.currentCalendarDate.getFullYear() - 1);
     },
     goNextYear() {
-      this.chooseYear(this.currentClendarDate.getFullYear() + 1);
+      this.chooseYear(this.currentCalendarDate.getFullYear() + 1);
     },
     chooseDate(date) {
       if (date === 'today') {
@@ -86,12 +89,12 @@ export default {
       }
     },
     chooseMonth(month) {
-      this.currentClendarDate.setMonth(month);
-      this.updateCalendarByDateObject(this.currentClendarDate);
+      this.currentCalendarDate.setMonth(month);
+      this.updateCalendarByDateObject(this.currentCalendarDate);
     },
     chooseYear(fullYear) {
-      this.currentClendarDate.setFullYear(fullYear);
-      this.updateCalendarByDateObject(this.currentClendarDate);
+      this.currentCalendarDate.setFullYear(fullYear);
+      this.updateCalendarByDateObject(this.currentCalendarDate);
     },
     initConfigs() {},
     updateCalendarByDateObject(date) {
@@ -99,8 +102,8 @@ export default {
     },
     initCalendar() {
       const now = new Date();
-      this.currentClendarDate = now;
-      this.updateCalendarByDateObject(this.currentClendarDate);
+      this.currentCalendarDate = now;
+      this.updateCalendarByDateObject(this.currentCalendarDate);
     },
     updateCalendar() {},
     selectDate(date) {
