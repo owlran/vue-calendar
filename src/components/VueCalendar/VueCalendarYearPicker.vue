@@ -16,6 +16,7 @@
 
 <script>
 import { VIEW_TYPES } from '@/const/index';
+import { extractDateObjectFromDateString } from '@/js/utils/dateUtils';
 import VueCalendarHeader from './VueCalendarHeader.vue';
 
 export default {
@@ -37,6 +38,7 @@ export default {
   },
   computed: {
     minYear() {
+      console.log('selectedYear', this.selectedYear);
       return this.selectedYear - (this.selectedYear % 10);
     },
     maxYear() {
@@ -85,8 +87,9 @@ export default {
   },
   mounted() {
     this.viewYear = this.calendar.date.getFullYear();
+
     this.selectedYear = typeof this.selectedDate === 'string'
-      ? new Date(this.selectedDate).getFullYear()
+      ? extractDateObjectFromDateString(this.selectedDate).getFullYear()
       : this.selectedDate.getFullYear();
   },
 };

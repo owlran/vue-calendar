@@ -16,6 +16,7 @@
 
 <script>
 import VueCalendarHeader from '@/components/VueCalendar/VueCalendarHeader.vue';
+import { extractDateObjectFromDateString } from '@/js/utils/dateUtils';
 import { VIEW_TYPES } from '@/const/index';
 
 export default {
@@ -74,10 +75,10 @@ export default {
   mounted() {
     this.viewYear = this.calendar.date.getFullYear();
     this.selectedYear = typeof this.selectedDate === 'string'
-      ? new Date(this.selectedDate).getFullYear()
+      ? extractDateObjectFromDateString(this.selectedDate).getFullYear()
       : this.selectedDate.getFullYear();
     this.seletectedMonth = typeof this.selectedDate === 'string'
-      ? new Date(this.selectedDate).getMonth()
+      ? extractDateObjectFromDateString(this.selectedDate).getMonth()
       : this.selectedDate.getMonth();
   },
 };
