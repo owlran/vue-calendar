@@ -92,12 +92,12 @@ export default {
     justify-content: center;
   }
   &__month-item {
-    padding: 25px;
+    padding: 10px;
+    margin: 15px;
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    margin-top: 3px;
-    font-size: 14px;
+    font-size: 13px;
     &--selected {
       background-color: #db3d44;
       color: #fff;

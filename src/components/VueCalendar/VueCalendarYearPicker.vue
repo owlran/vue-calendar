@@ -99,12 +99,12 @@ export default {
     justify-content: center;
   }
   &__year-item {
-    padding: 25px;
+    padding: 10px;
+    margin: 15px;
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    margin-top: 3px;
-    font-size: 14px;
+    font-size: 13px;
     &--hide {
       color: gray;
     }
