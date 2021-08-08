@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     minYear() {
-      console.log('selectedYear', this.selectedYear);
       return this.selectedYear - (this.selectedYear % 10);
     },
     maxYear() {
