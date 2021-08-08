@@ -1,29 +1,68 @@
-# vue-calendar
+<h1 align="center">Vue Calendar</h1>
+<p align="center">calendar + datepicker for Vue.js</p>
 
-## Project setup
-```
-yarn install
-```
+## Demo
+Demo 👉 ./dist/index.html
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+or check 👉 <a href="https://ghost.cs.nccu.edu.tw/~s9862/dist/">here</a>
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+___
 
-### Run your tests
+## Project Setup 
+
+### install and run
+
 ```
-yarn run test
+npm install
+npm run serve
 ```
 
-### Lints and fixes files
+### run unit test
 ```
-yarn run lint
+npm run test
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### build dist
+
+```
+npm run build
+```
+___
+
+## Usage
+
+### Vue.use()
+
+```javascript
+import VueCalendar from '@/components/VueCalendar/index';
+// VueCalendar will be registered globally
+Vue.use(VueCalendar);
+````
+#### Calendar Template Usage
+````html
+<VueCalendar
+  :date="date"  // YYYY-MM-DD
+  @selectDate="selectDate"
+/>
+````
+#### Date Picker Template Usage
+````html
+<VueCalendar
+  :date="date"  // YYYY-MM-DD
+  isDatePickerMode
+  @selectDate="selectDate"
+/>
+````
+---
+## Available props
+| Prop                          | Type            | Default     | Example     | Description                              |
+|-------------------------------|-----------------|-------------|-------------|------------------------------------------|
+| date                          | String          | null        | '2021-08-09'| Calendar Current Date                    |
+| isDatePickerMode              | Boolean         | false       | true        | Switch calendar to date picker           |
+
+### Events
+
+| Event          | Output       | Description                                                        |
+| :------------- | :------------- | :-----------------------------------------------------------: 
+| selectDate |String| Get clicked day string
+
