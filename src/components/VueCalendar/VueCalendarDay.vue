@@ -1,5 +1,8 @@
 <template lang="pug">
-.VueCalendarDay(:class="getVueCalendarDayClass")
+.VueCalendarDay(
+  :class="getVueCalendarDayClass"
+  @click="$emit('selectDate', day.date)"
+)
   span {{ day.day }}
 </template>
 
@@ -9,13 +12,17 @@ export default {
     day: {
       type: Object,
     },
+    selectedDate: {
+      type: String,
+    },
   },
   computed: {
     getVueCalendarDayClass() {
-      const { hide, isToday } = this.day;
+      const { hide, isToday, date } = this.day;
       return {
         'VueCalendarDay--hide': hide,
         'VueCalendarDay--today': isToday,
+        'VueCalendarDay--selected': date === this.selectedDate,
       };
     },
   },
@@ -35,6 +42,13 @@ export default {
   }
   &--hide {
     color: gray;
+  }
+  &--selected {
+    span {
+      background-color: #db3d44;
+      color: #fff;
+      border-radius: 50%;
+    }
   }
   span {
     display: inline-block;

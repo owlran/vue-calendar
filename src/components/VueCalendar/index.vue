@@ -11,6 +11,8 @@
         v-for="(week, weekIndex) in calendar.weeks"
         :key="weekIndex"
         :week="week"
+        :selectedDate="selectedDate"
+        @selectDate="selectDate"
       )
         VueCalendarDay
 </template>
@@ -23,8 +25,15 @@ import VueCalendarWeek from './VueCalendarWeek.vue';
 import VueCalendarDay from './VueCalendarDay.vue';
 
 export default {
+  props: {
+    date: {
+      type: String || Object,
+      default: null,
+    },
+  },
   data() {
     return {
+      selectedDate: null,
       calendarModel,
       currentClendarDate: null,
       calendar: {
@@ -77,10 +86,15 @@ export default {
       this.updateCalendarByDateObject(this.currentClendarDate);
     },
     updateCalendar() {},
+    selectDate(date) {
+      this.selectedDate = date;
+      this.$emit('selectDate', date);
+    },
   },
   created() {
     this.initConfigs();
     this.initCalendar();
+    this.selectedDate = this.date;
   },
 };
 </script>

@@ -4,6 +4,8 @@
     v-for="(day, dayIndex) in week.days"
     :key="dayIndex"
     :day="day"
+    :selectedDate="selectedDate"
+    @selectDate="selectDate"
   )
 </template>
 
@@ -15,9 +17,17 @@ export default {
     week: {
       type: Object,
     },
+    selectedDate: {
+      type: String,
+    },
   },
   components: {
     VueCalendarDay,
+  },
+  methods: {
+    selectDate(date) {
+      this.$emit('selectDate', date);
+    },
   },
 };
 </script>
