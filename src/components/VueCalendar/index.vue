@@ -3,9 +3,9 @@
     .VueCalendar__wrapper(v-if="currentViewType === VIEW_TYPES.WEEKS_DAYS")
       VueCalendarHeader(
         :title="calendar.title"
-        @goPreMonth="goPreMonth"
-        @goNextMonth="goNextMonth"
-        @changeView="changeView"
+        @goPrevious="goPreMonth"
+        @goNext="goNextMonth"
+        @changeView="changeView(VIEW_TYPES.WEEKS_DAYS)"
       )
       .VueCalendar__content
         VueClendarDayNames(:configs="configs")

@@ -3,20 +3,19 @@
   .VueCalendarHeader__title-wrapper
     VueCalendarArrow(
       :arrowDirection="'left'"
-      @click="$emit('goPreMonth')"
+      @click="$emit('goPrevious')"
     )
     span.VueCalendarHeader__title(
-      @click="changeView"
+      @click="$emit('changeView')"
     ) {{ title }}
     VueCalendarArrow(
       :arrowDirection="'right'"
-      @click="$emit('goNextMonth')"
+      @click="$emit('goNext')"
     )
 </template>
 
 <script>
 import VueCalendarArrow from '@/components/VueCalendar/VueCalendarArrow.vue';
-import { VIEW_TYPES } from '@/const/index';
 
 export default {
   props: {
@@ -26,11 +25,6 @@ export default {
   },
   components: {
     VueCalendarArrow,
-  },
-  methods: {
-    changeView() {
-      this.$emit('changeView', VIEW_TYPES.MONTH_PICKER);
-    },
   },
 };
 </script>
