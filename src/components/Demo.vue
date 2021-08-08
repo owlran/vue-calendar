@@ -1,11 +1,13 @@
 <template lang="pug">
   .Demo
-    h1 Demo
+    h1.Demo__welcom-msg Welcome to VueCalendar demo page
+    h2.Demo__title VueCalendar
     VueCalendar.Demo__calendar(
       :date="date"
       @selectDate="selectDate"
     )
     p selected date: {{ date }}
+    h2.Demo__title DatePicker
     VueCalendar.Demo__calendar(
       isDatePickerMode
       :date="date"
@@ -42,10 +44,17 @@ body, html {
 </style>
 <style lang="scss" scoped>
 .Demo {
+  padding: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  &__welcom-msg {
+    margin: 10px;
+  }
+  &__title {
+    padding: 10px;
+  }
   &__calendar {
     width: 400px;
   }
