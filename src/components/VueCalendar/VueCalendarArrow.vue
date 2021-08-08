@@ -1,5 +1,8 @@
 <template lang="pug">
-  .VueCalendarArrow(:class="getClass")
+  .VueCalendarArrow(
+    :class="getClass"
+    @click="$emit('click')"
+  )
 </template>
 
 <script>

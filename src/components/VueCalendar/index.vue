@@ -2,6 +2,8 @@
   .VueCalendar
     VueCalendarHeader(
       :title="calendar.title"
+      @goPreMonth="goPreMonth"
+      @goNextMonth="goNextMonth"
     )
     .VueCalendar__content
       VueClendarDayNames(:configs="configs")
@@ -24,6 +26,7 @@ export default {
   data() {
     return {
       calendarModel,
+      currentClendarDate: null,
       calendar: {
         weeks: [],
       },
@@ -39,25 +42,39 @@ export default {
     VueClendarDayNames,
   },
   methods: {
-    goPreMonth(date) {
-      console.log(date);
+    goPreMonth() {
+      this.chooseMonth(this.currentClendarDate.getMonth() - 1);
     },
-    goNextMonth(date) {
-      console.log(date);
+    goNextMonth() {
+      this.chooseMonth(this.currentClendarDate.getMonth() + 1);
     },
-    goPreYear(date) {
-      console.log(date);
+    goPreYear() {
+      this.chooseYear(this.currentClendarDate.getFullYear() - 1);
     },
-    goNextYear(date) {
-      console.log(date);
+    goNextYear() {
+      this.chooseYear(this.currentClendarDate.getFullYear() + 1);
     },
     chooseDate(date) {
-      console.log(date);
+      if (date === 'today') {
+        this.initCalendar();
+      }
+    },
+    chooseMonth(month) {
+      this.currentClendarDate.setMonth(month);
+      this.updateCalendarByDateObject(this.currentClendarDate);
+    },
+    chooseYear(fullYear) {
+      this.currentClendarDate.setFullYear(fullYear);
+      this.updateCalendarByDateObject(this.currentClendarDate);
     },
     initConfigs() {},
+    updateCalendarByDateObject(date) {
+      this.calendar = calendarModel.generateCalendar(date);
+    },
     initCalendar() {
       const now = new Date();
-      this.calendar = calendarModel.generateCalendar(now);
+      this.currentClendarDate = now;
+      this.updateCalendarByDateObject(this.currentClendarDate);
     },
     updateCalendar() {},
   },

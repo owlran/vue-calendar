@@ -1,9 +1,15 @@
 <template lang="pug">
 .VueCalendarHeader
   .VueCalendarHeader__title-wrapper
-    VueCalendarArrow(:arrowDirection="'left'")
+    VueCalendarArrow(
+      :arrowDirection="'left'"
+      @click="$emit('goPreMonth')"
+    )
     span.VueCalendarHeader__title {{ title }}
-    VueCalendarArrow(:arrowDirection="'right'")
+    VueCalendarArrow(
+      :arrowDirection="'right'"
+      @click="$emit('goNextMonth')"
+    )
   VueCalendarYearPicker(v-if="false")
   VueCalendarMonthPicker(v-if="false")
 </template>
