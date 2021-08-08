@@ -1,17 +1,42 @@
 <template lang="pug">
 .VueCalendarHeader
+  .VueCalendarHeader__title-wrapper
+    VueCalendarArrow(:arrowDirection="'left'")
+    span.VueCalendarHeader__title {{ title }}
+    VueCalendarArrow(:arrowDirection="'right'")
   VueCalendarYearPicker(v-if="false")
   VueCalendarMonthPicker(v-if="false")
 </template>
 
 <script>
+import VueCalendarArrow from '@/components/VueCalendar/VueCalendarArrow.vue';
 import VueCalendarYearPicker from './VueCalendarYearPicker.vue';
 import VueCalendarMonthPicker from './VueCalendarMonthPicker.vue';
 
 export default {
+  props: {
+    title: {
+      type: String,
+    },
+  },
   components: {
     VueCalendarYearPicker,
     VueCalendarMonthPicker,
+    VueCalendarArrow,
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.VueCalendarHeader {
+  &__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+</style>
