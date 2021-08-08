@@ -30,13 +30,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .VueCalendarDay {
-  display: inline-block;
   padding: 5px;
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 3px;
+  font-size: 14px;
   &--today {
     color: #db3d44;
   }
