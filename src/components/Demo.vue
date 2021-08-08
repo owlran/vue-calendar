@@ -6,13 +6,18 @@
       @selectDate="selectDate"
     )
     p selected date: {{ date }}
+    VueCalendar.Demo__calendar(
+      isDatePickerMode
+      :date="date"
+      @selectDate="selectDate"
+    )
 </template>
 
 <script>
 export default {
   data() {
     return {
-      date: '2021-8-5',
+      date: '2021-08-09',
     };
   },
   methods: {
