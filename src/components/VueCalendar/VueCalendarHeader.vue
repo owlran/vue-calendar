@@ -43,6 +43,12 @@ export default {
   &__title {
     font-size: 18px;
     font-weight: bold;
+    padding: 5px 60px;
+    &:hover {
+      background-color: rgba(113, 113, 113, 0.3);
+      transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
+    };
   }
 }
 </style>
