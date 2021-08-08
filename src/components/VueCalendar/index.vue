@@ -4,6 +4,7 @@
       :title="calendar.title"
     )
     .VueCalendar__content
+      VueClendarDayNames(:configs="configs")
       VueCalendarWeek(
         v-for="(week, weekIndex) in calendar.weeks"
         :key="weekIndex"
@@ -14,6 +15,7 @@
 
 <script>
 import calendarModel from '@/js/models/calendarModel';
+import VueClendarDayNames from '@/components/VueCalendar/VueCalendarDayNames.vue';
 import VueCalendarHeader from './VueCalendarHeader.vue';
 import VueCalendarWeek from './VueCalendarWeek.vue';
 import VueCalendarDay from './VueCalendarDay.vue';
@@ -25,12 +27,16 @@ export default {
       calendar: {
         weeks: [],
       },
+      configs: {
+        dayNames: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      },
     };
   },
   components: {
     VueCalendarHeader,
     VueCalendarWeek,
     VueCalendarDay,
+    VueClendarDayNames,
   },
   methods: {
     goPreMonth(date) {
