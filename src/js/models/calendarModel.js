@@ -82,7 +82,7 @@ class CalendarModel {
       // extract previous month week days
       const previousMonthDays = this.getMonthDays({
         year,
-        month: month - 1,
+        month: (month - 1 + 12) % 12,
         shouldBeHide: true,
       });
       const {
@@ -96,7 +96,7 @@ class CalendarModel {
     }
     const nextMonthDays = this.getMonthDays({
       year,
-      month: month + 1,
+      month: (month + 1) % 12,
       shouldBeHide: true,
     });
     if (lastWeekDays.days.length !== 7) {
