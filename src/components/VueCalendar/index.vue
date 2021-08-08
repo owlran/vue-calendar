@@ -14,7 +14,6 @@
         :selectedDate="selectedDate"
         @selectDate="selectDate"
       )
-        VueCalendarDay
 </template>
 
 <script>
@@ -22,7 +21,6 @@ import calendarModel from '@/js/models/calendarModel';
 import VueClendarDayNames from '@/components/VueCalendar/VueCalendarDayNames.vue';
 import VueCalendarHeader from './VueCalendarHeader.vue';
 import VueCalendarWeek from './VueCalendarWeek.vue';
-import VueCalendarDay from './VueCalendarDay.vue';
 
 export default {
   props: {
@@ -47,7 +45,6 @@ export default {
   components: {
     VueCalendarHeader,
     VueCalendarWeek,
-    VueCalendarDay,
     VueClendarDayNames,
   },
   methods: {
