@@ -26,6 +26,8 @@
       VueCalendarMonthPicker(
         :calendar="calendar"
         :selectedDate="selectedDate"
+        @chooseMonth="chooseMonth"
+        @changeView="changeView"
       )
 </template>
 

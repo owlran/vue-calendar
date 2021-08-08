@@ -20,7 +20,7 @@ import VueCalendarArrow from '@/components/VueCalendar/VueCalendarArrow.vue';
 export default {
   props: {
     title: {
-      type: String,
+      type: [String, Number],
     },
   },
   components: {
