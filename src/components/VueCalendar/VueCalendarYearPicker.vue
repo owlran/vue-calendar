@@ -46,7 +46,8 @@ export default {
       return `${this.minYear} - ${this.maxYear}`;
     },
     yearRange() {
-      const range = [...Array(10).keys()]
+      const range = Array(...Array(10))
+        .map((_, i) => i)
         .map((index) => index + this.minYear)
         .map((year) => ({
           year,
