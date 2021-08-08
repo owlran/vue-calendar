@@ -1,4 +1,123 @@
 <template lang="pug">
-.VueCalendarHeader
-  p year picker
+.VueCalendarYearPicker
+  VueCalendarHeader(
+    :title="title"
+    @goPrevious="goPrevious"
+    @goNext="goNext"
+  )
+  .VueCalendarYearPicker__content
+    span.VueCalendarYearPicker__year-item(
+      :class="getClass(year)"
+      v-for="(year, yearIndex) in yearRange"
+      :key="yearIndex"
+      @click="chooseYear(year.year)"
+    ) {{ year.year }}
 </template>
+
+<script>
+import { VIEW_TYPES } from '@/const/index';
+import VueCalendarHeader from './VueCalendarHeader.vue';
+
+export default {
+  props: {
+    calendar: {
+      type: Object,
+    },
+    selectedDate: {
+      type: String,
+    },
+  },
+  components: {
+    VueCalendarHeader,
+  },
+  data() {
+    return {
+      selectedYear: '',
+    };
+  },
+  computed: {
+    minYear() {
+      return this.selectedYear - (this.selectedYear % 10);
+    },
+    maxYear() {
+      return this.minYear + 9;
+    },
+    title() {
+      return `${this.minYear} - ${this.maxYear}`;
+    },
+    yearRange() {
+      const range = [...Array(10).keys()]
+        .map((index) => index + this.minYear)
+        .map((year) => ({
+          year,
+          hide: false,
+        }));
+      const {
+        0: minYearOfRange,
+        [range.length - 1]: maxYearOfRange,
+      } = range;
+
+      return [
+        { year: minYearOfRange.year - 1, hide: true },
+        ...range,
+        { year: maxYearOfRange.year + 1, hide: true },
+      ];
+    },
+  },
+  methods: {
+    getClass(yearObject) {
+      return {
+        'VueCalendarYearPicker__year-item--hide': yearObject.hide,
+        'VueCalendarYearPicker__year-item--selected': yearObject.year === this.viewYear,
+      };
+    },
+    chooseYear(year) {
+      this.$emit('chooseYear', year);
+      this.$emit('changeView', VIEW_TYPES.MONTH_PICKER);
+    },
+    goPrevious() {
+      this.selectedYear -= 10;
+    },
+    goNext() {
+      this.selectedYear += 10;
+    },
+  },
+  mounted() {
+    this.viewYear = this.calendar.date.getFullYear();
+    this.selectedYear = typeof this.selectedDate === 'string'
+      ? new Date(this.selectedDate).getFullYear()
+      : this.selectedDate.getFullYear();
+  },
+};
+</script>
+<style lang="scss" scoped>
+.VueCalendarYearPicker {
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  &__year-item {
+    padding: 25px;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 3px;
+    font-size: 14px;
+    &--hide {
+      color: gray;
+    }
+    &--selected {
+      background-color: #db3d44;
+      color: #fff;
+      border-radius: 50%;
+    }
+    &:hover {
+      background-color: rgba(113, 113, 113, 0.3);
+      transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
+    }
+  }
+}
+</style>

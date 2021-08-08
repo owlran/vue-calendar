@@ -19,7 +19,12 @@
     .VueCalendar__wrapper(
       v-else-if="currentViewType === VIEW_TYPES.YEAR_PICKER"
     )
-      VueCalendarYearPicker
+      VueCalendarYearPicker(
+        :calendar="calendar"
+        :selectedDate="selectedDate"
+        @chooseYear="chooseYear"
+        @changeView="changeView"
+      )
     .VueCalendar__wrapper(
       v-else-if="currentViewType === VIEW_TYPES.MONTH_PICKER"
     )
